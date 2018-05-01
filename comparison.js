@@ -12,6 +12,9 @@ var annotationFolders = argv['_'];
 if (annotationFolders.length == 0) {
     annotationFolders = [__dirname + '/public/comparison/prediction', __dirname + '/public/comparison/gold'];
 }
+annotationFolders = _.map(annotationFolders, function (folder) {
+    return path.resolve(folder);
+});
 
 
 // Retrieve file list for every request might be slow, while allowing adding new files without restarting the server
@@ -96,3 +99,7 @@ app.use(express.static(__dirname + '/public'));
 app.listen(serverPort);
 
 console.log('Listening at http://localhost:' + serverPort);
+console.log('Folders served: ');
+_.forEach(annotationFolders, function (folder) {
+    console.log(folder);
+});
